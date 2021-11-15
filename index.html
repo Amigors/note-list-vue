@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+    <div class="container pt-5" id="app">
+        <div class="card">
+            <h1 :style="{
+                color: inputValue.length < 20 ? 'darkblue' : 'darkred',
+                borderBottom: inputValue.length < 20 ? '2px solid black' : '3px solid #045ab1'        
+        }">{{title}}</h1>
+            <div class="form-control">
+                <input 
+                    type="text" 
+                    :placeholder="placeholderText"
+                    v-model="inputValue"
+                    @keypress.enter="addNewNote"
+                >
+            </div>
+            <button class="btn" @click ="addNewNote">Add</button>
+            <hr>
+            <ul class="list" v-if="notes.length !== 0">
+                <li class="list-item" v-for="(note, i) in notes">
+                    ({{i}}){{note}}
+                    <button class="btn danger" @click="removeNote(i)">Delete</button>
+                </li>
+                <hr/>
+                <li>
+                    <strong>Total count: {{notes.length}}</strong> | Doubled: {{doubleCount}}
+                </li>
+            </ul>
+            <div v-else-if="notes.length === 0">Notes list is empty</div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
